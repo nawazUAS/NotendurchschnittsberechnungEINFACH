@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody; //DAS ist das richtige einfach verzweifelt junge
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -117,4 +118,51 @@ if (detail != null) {
         return new ResponseEntity<Fach>(fach,HttpStatus.OK);
     }
     
+
+
+
+
+
+     @PutMapping(value = "/faecher/{id}", 
+                 consumes = MediaType.APPLICATION_JSON_VALUE, 
+                 produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity<?> update(@RequestBody Fach neuesfach, @PathVariable("id") Long fachId){
+        log.debug("update() is called");
+        Fach fach = fachService.getFachById(fachId);
+        if (fach == null) {
+            return new ResponseEntity<Fach>(HttpStatus.NOT_FOUND);
+        }
+
+        String detail=null;
+
+        if(neuesfach== null){
+            detail="fach must not be null";
+        }
+        else if(neuesfach.getFachBezeichnung() == null){
+            detail="Fachbezeichnung must not be null";
+        }
+        else if(neuesfach.getFachBezeichnung().isEmpty()){
+            detail="Fachbezeichnung must not be empty";}
+
+        else if(neuesfach.getNote()>7||neuesfach.getNote()<1){
+            detail="Note must be in range between 1 and 6";
+        }
+
+
+if (detail != null) {
+            ProblemDetail pd = ProblemDetail.forStatusAndDetail(HttpStatus.UNPROCESSABLE_ENTITY, detail); 
+            pd.setInstance(URI.create("/faecher"));
+            pd.setTitle("JSON Object Error");
+            return ResponseEntity.unprocessableEntity().body(pd);
+        }
+
+        fach.setFachBezeichnung(neuesfach.getFachBezeichnung());
+        fach.setNote(neuesfach.getNote());
+        fach = fachService.updateFach(fach);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setLocation(URI.create("/faecher" + fach.getId()));
+        return new ResponseEntity<Fach>(fach, headers, HttpStatus.CREATED);
+    }
+
 }
