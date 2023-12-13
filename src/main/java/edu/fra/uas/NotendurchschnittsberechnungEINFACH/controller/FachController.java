@@ -168,7 +168,7 @@ if (detail != null) {
 
 
 
-     @PutMapping(value = "/fach{id}/note", 
+     @PutMapping(value = "/fach/{id}/note", 
                  consumes = MediaType.APPLICATION_JSON_VALUE, 
                  produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
@@ -202,6 +202,11 @@ if (detail != null) {
         headers.setLocation(URI.create("/fach" + fach.getId()));
         return new ResponseEntity<Fach>(fach, headers, HttpStatus.CREATED);
     }
+
+
+
+
+    
     
 
 }
