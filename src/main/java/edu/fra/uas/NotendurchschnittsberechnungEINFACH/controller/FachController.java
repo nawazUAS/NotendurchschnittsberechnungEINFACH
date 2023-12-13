@@ -161,7 +161,7 @@ if (detail != null) {
         fach.setNote(neuesfach.getNote());
         fach = fachService.updateFach(fach);
         HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(URI.create("/faach" + fach.getId()));
+        headers.setLocation(URI.create("/fach" + fach.getId()));
         return new ResponseEntity<Fach>(fach, headers, HttpStatus.CREATED);
     }
 

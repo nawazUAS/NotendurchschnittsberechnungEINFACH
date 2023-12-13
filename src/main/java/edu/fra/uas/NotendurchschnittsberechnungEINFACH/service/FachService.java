@@ -56,16 +56,6 @@ public class FachService {
     return fach;
     }
 
-    public ArrayList<Fach> updateAlleNoten (){
-        ArrayList<Fach> allefaecher = new ArrayList<>();
-        ArrayList<Fach> meineFaecher = (ArrayList<Fach>) getAllFaecher();
-        for(Fach fach: meineFaecher){
-            allefaecher.add(fach);
-        }
-        return meineFaecher;
-
-    }
-
     public double berechneDurchschnitt(){
     ArrayList<Fach> faecher= new ArrayList<>();
 
