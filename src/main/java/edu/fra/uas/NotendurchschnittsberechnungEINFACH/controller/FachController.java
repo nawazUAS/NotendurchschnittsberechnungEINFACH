@@ -12,7 +12,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody; //DAS ist das richtige einfach verzweifelt junge
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -103,6 +105,16 @@ if (detail != null) {
     }
 
 
-
+  @DeleteMapping(value = "/faecher/{id}",
+                   produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity<?> delete(@PathVariable("id") Long faecherId){
+        log.debug("delete() is called");
+        Fach fach = fachService.deleteFach(faecherId);
+        if(fach==null){
+            return ResponseEntity.notFound().build();
+        }
+        return new ResponseEntity<Fach>(fach,HttpStatus.OK);
+    }
     
 }
