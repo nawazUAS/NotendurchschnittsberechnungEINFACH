@@ -34,6 +34,7 @@ public void init(){
     fach2.setNote(2);
     fachService.createFach(fach2);
 
+    log.debug("### Date inizialized ###");
 
   
 
