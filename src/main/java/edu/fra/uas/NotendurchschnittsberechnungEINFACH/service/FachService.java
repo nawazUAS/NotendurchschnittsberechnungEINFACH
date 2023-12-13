@@ -34,6 +34,18 @@ public class FachService {
     return neuesFach;
     }
 
+    public Fach getFachById(long id){
+        log.debug("getFach: "+id);
+    return fachRepository.get(id);
+    }
+
+    public Fach updateFach(Fach fach){
+        log.debug("updateFach "+ fach.getFachBezeichnung());
+
+        fachRepository.put(fach.getId(), fach);
+        return fachRepository.get(fach.getId());
+    }
+
     public double berechneDurchschnitt(){
     ArrayList<Fach> faecher= new ArrayList<>();
 
