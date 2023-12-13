@@ -165,4 +165,43 @@ if (detail != null) {
         return new ResponseEntity<Fach>(fach, headers, HttpStatus.CREATED);
     }
 
+
+
+
+     @PutMapping(value = "/faecher/{id}/note", 
+                 consumes = MediaType.APPLICATION_JSON_VALUE, 
+                 produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity<?> updateNote(@RequestBody int note, @PathVariable("id") Long fachId){
+        log.debug("updateNote() is called");
+        Fach fach = fachService.getFachById(fachId);
+        if (fach == null) {
+            return new ResponseEntity<Fach>(HttpStatus.NOT_FOUND);
+        }
+
+        String detail=null;
+
+        if(note >6||note<1){
+            detail="fach must be between 1 and 6";
+        }
+        else if(note == 0){
+            detail="Fachbezeichnung must not be null";
+        }
+
+
+if (detail != null) {
+            ProblemDetail pd = ProblemDetail.forStatusAndDetail(HttpStatus.UNPROCESSABLE_ENTITY, detail); 
+            pd.setInstance(URI.create("/faecher"));
+            pd.setTitle("JSON Object Error");
+            return ResponseEntity.unprocessableEntity().body(pd);
+        }
+
+      //  fach.setNote(note);
+        fach = fachService.updateNote(fachId, note);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setLocation(URI.create("/faecher" + fach.getId()));
+        return new ResponseEntity<Fach>(fach, headers, HttpStatus.CREATED);
+    }
+    
+
 }

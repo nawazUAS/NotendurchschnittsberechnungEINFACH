@@ -50,8 +50,9 @@ public class FachService {
     }
 
 
-    public Fach updateNote(long id){
+    public Fach updateNote(long id, int neueNote){
     Fach fach = getFachById(id);
+    fach.setNote(neueNote);
     return fach;
     }
 
