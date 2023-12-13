@@ -58,7 +58,7 @@ public ResponseEntity<List<Fach>> list(){
 }
 
 
-@GetMapping(value = "/facher/durchschnitt",
+@GetMapping(value = "/faecher/durchschnitt",
             produces = MediaType.APPLICATION_JSON_VALUE)
 @ResponseBody
 public ResponseEntity<Double>  berechneDurchschnitt(){
@@ -94,7 +94,7 @@ public ResponseEntity<Double>  berechneDurchschnitt(){
 
 if (detail != null) {
             ProblemDetail pd = ProblemDetail.forStatusAndDetail(HttpStatus.UNPROCESSABLE_ENTITY, detail); 
-            pd.setInstance(URI.create("/faecher"));
+            pd.setInstance(URI.create("/fach"));
             pd.setTitle("JSON Object Error");
             return ResponseEntity.unprocessableEntity().body(pd);
         }
