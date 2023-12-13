@@ -14,12 +14,12 @@ import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody; //DAS ist das richtige einfach verzweifelt junge
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import edu.fra.uas.NotendurchschnittsberechnungEINFACH.model.Fach;
 import edu.fra.uas.NotendurchschnittsberechnungEINFACH.service.FachService;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 
 
 
