@@ -43,5 +43,34 @@ public String toString() {
     // TODO Auto-generated method stub
     return "Fachbezeichnung: "+getFachBezeichnung()+" ID: "+getId();
 }
+
+
+
+@Override
+public boolean equals(Object object) {
+    if (object == null) 
+    return false;
+if (object == this) 
+    return true;
+if (this.getClass() != object.getClass()) 
+    return false;
+if (this.fachBezeichnung == null){
+    if (((Fach)object).fachBezeichnung!=null)
+    return false;
+} else if(!this.fachBezeichnung.equals(((Fach)object).fachBezeichnung)){
+    return false;
+}
+return true;
+
+}
+
+@Override
+public int hashCode() {
+    int hash = 7;
+    hash = 31 * hash + (this.fachBezeichnung != null ? this.fachBezeichnung.hashCode() : 0);
+
+    return hash;
+}
+
     
 }
