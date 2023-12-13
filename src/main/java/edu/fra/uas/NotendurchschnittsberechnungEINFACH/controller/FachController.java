@@ -36,7 +36,7 @@ public class FachController {
 FachService fachService;
 
 
-@GetMapping(value = "/fach",
+@GetMapping(value = "/faecher",
             produces = MediaType.APPLICATION_JSON_VALUE)
 @ResponseBody
 public ResponseEntity<List<Fach>> list(){
@@ -58,7 +58,7 @@ public ResponseEntity<List<Fach>> list(){
 }
 
 
-@GetMapping(value = "/fach/durchschnitt",
+@GetMapping(value = "/facher/durchschnitt",
             produces = MediaType.APPLICATION_JSON_VALUE)
 @ResponseBody
 public ResponseEntity<Double>  berechneDurchschnitt(){
@@ -70,7 +70,7 @@ public ResponseEntity<Double>  berechneDurchschnitt(){
 }
 
 
-    @PostMapping(value = "/faecher", 
+    @PostMapping(value = "/fach", 
                  consumes = MediaType.APPLICATION_JSON_VALUE, 
                  produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
@@ -101,12 +101,12 @@ if (detail != null) {
 
         fach = fachService.createFach(fach);
         HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(URI.create("/faecher" + fach.getId()));
+        headers.setLocation(URI.create("/fach" + fach.getId()));
         return new ResponseEntity<Fach>(fach, headers, HttpStatus.CREATED);
     }
 
 
-  @DeleteMapping(value = "/faecher/{id}",
+  @DeleteMapping(value = "/fach/{id}",
                    produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity<?> delete(@PathVariable("id") Long faecherId){
@@ -123,7 +123,7 @@ if (detail != null) {
 
 
 
-     @PutMapping(value = "/faecher/{id}", 
+     @PutMapping(value = "/fach/{id}", 
                  consumes = MediaType.APPLICATION_JSON_VALUE, 
                  produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
@@ -152,7 +152,7 @@ if (detail != null) {
 
 if (detail != null) {
             ProblemDetail pd = ProblemDetail.forStatusAndDetail(HttpStatus.UNPROCESSABLE_ENTITY, detail); 
-            pd.setInstance(URI.create("/faecher"));
+            pd.setInstance(URI.create("/fach"));
             pd.setTitle("JSON Object Error");
             return ResponseEntity.unprocessableEntity().body(pd);
         }
@@ -161,14 +161,14 @@ if (detail != null) {
         fach.setNote(neuesfach.getNote());
         fach = fachService.updateFach(fach);
         HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(URI.create("/faecher" + fach.getId()));
+        headers.setLocation(URI.create("/faach" + fach.getId()));
         return new ResponseEntity<Fach>(fach, headers, HttpStatus.CREATED);
     }
 
 
 
 
-     @PutMapping(value = "/faecher/{id}/note", 
+     @PutMapping(value = "/fach{id}/note", 
                  consumes = MediaType.APPLICATION_JSON_VALUE, 
                  produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
@@ -191,7 +191,7 @@ if (detail != null) {
 
 if (detail != null) {
             ProblemDetail pd = ProblemDetail.forStatusAndDetail(HttpStatus.UNPROCESSABLE_ENTITY, detail); 
-            pd.setInstance(URI.create("/faecher"));
+            pd.setInstance(URI.create("/fach"));
             pd.setTitle("JSON Object Error");
             return ResponseEntity.unprocessableEntity().body(pd);
         }
@@ -199,7 +199,7 @@ if (detail != null) {
       //  fach.setNote(note);
         fach = fachService.updateNote(fachId, note);
         HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(URI.create("/faecher" + fach.getId()));
+        headers.setLocation(URI.create("/fach" + fach.getId()));
         return new ResponseEntity<Fach>(fach, headers, HttpStatus.CREATED);
     }
     
