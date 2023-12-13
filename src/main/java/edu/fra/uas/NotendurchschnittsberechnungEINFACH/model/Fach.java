@@ -16,9 +16,8 @@ public class Fach implements java.io.Serializable{
     public Fach(long id, String fachBezeichnung, int note){
         this.fachBezeichnung=fachBezeichnung;
         this.note=note;
-        this.id=id;
-        log.debug("Fach created:" + fachBezeichnung);   
         this.id=id; 
+        log.debug("Fach created:" + fachBezeichnung);  
     }
 
     public void setFachBezeichnung(String fachBezeichnung) {
