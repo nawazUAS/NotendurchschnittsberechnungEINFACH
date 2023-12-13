@@ -24,14 +24,11 @@ public class FachService {
         return fachRepository.values();
     }
 
-    public Fach createFach(String fachBezeichnung, int note){
-        Fach neuesFach = new Fach();
-        neuesFach.setFachBezeichnung(fachBezeichnung);
-        neuesFach.setNote(note);
-        neuesFach.setId(nextId++);
-        log.debug(fachBezeichnung);
-        fachRepository.put(neuesFach.getId(), neuesFach);
-    return neuesFach;
+    public Fach createFach(Fach fach){
+        fach.setId(nextId++);
+        log.debug("createFach: "+fach.getId());
+        fachRepository.put(fach.getId(), fach);
+        return fachRepository.get(fach.getId());
     }
 
     public Fach getFachById(long id){
@@ -46,6 +43,18 @@ public class FachService {
         return fachRepository.get(fach.getId());
     }
 
+    public Fach deleteFach(long id){
+        log.debug("deleteFach: "+ getFachById(id).getFachBezeichnung());
+
+        return fachRepository.remove(id);
+    }
+
+
+    public Fach updateNote(long id){
+    Fach fach = getFachById(id);
+    return fach;
+    }
+
     public double berechneDurchschnitt(){
     ArrayList<Fach> faecher= new ArrayList<>();
 
@@ -55,15 +64,17 @@ public class FachService {
     }
 
     if (faecher.isEmpty()) {
+        log.warn("faecher is empty!");
         return 0.0;
     }
 
-    int summe=0;
+    double summe=0;
     for (Fach fach : faecher) {
-        summe += fach.getNote();
+        if(!(fach.getNote()>6 || fach.getNote()<1)){
+        summe += fach.getNote();}
     }
 
-    return (double) summe / faecher.size();
+    return summe / faecher.size();
 }
 
 
